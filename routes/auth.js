@@ -16,6 +16,8 @@ router.get('/user', verifyToken, User.getUser)
 // @access Public
 router.post('/register', User.register)
 
+router.post('/create', User.createUser)
+
 // @route POST api/auth/login
 // @desc Login user
 // @access Public

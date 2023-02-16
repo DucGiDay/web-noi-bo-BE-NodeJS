@@ -1,5 +1,5 @@
 GET http://localhost:5000/api/auth/user
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2M2VjYTdiZmNlMzRmODMxMjhhMWM4NjAiLCJpYXQiOjE2NzY0NTQ3NTZ9.htHRnUY5Q9ppXt5yJw5vqoyJ0tfxzj-duPilDYHZbWc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2M2VkZjJlZGMzNTYxZDJlODA4MzczNjUiLCJpYXQiOjE2NzY1Mzg2MDV9.cgKzGurhr2mhbYOknEdIsNR1wjc0kbv26P9KRbTc5bM
 
 ###
 
@@ -9,6 +9,17 @@ Content-Type: application/json
 {
   "username": "trungduc",
   "password": "1"
+}
+
+###
+
+POST http://localhost:5000/api/auth/create
+Content-Type: application/json
+
+{
+  "username": "trungduc2",
+  "password": "1",
+  "roles": ["post:edit-all"]
 }
 
 ###
@@ -37,7 +48,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2M2VjY
 ###
 
 GET http://localhost:5000/api/posts
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2M2VjYTdiZmNlMzRmODMxMjhhMWM4NjAiLCJpYXQiOjE2NzY0ODU4MjN9.Oj8xUSRbu67w1lntowq_C_BaBzppIU6doZoI74j7ibs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2M2VkZjJlZGMzNTYxZDJlODA4MzczNjUiLCJpYXQiOjE2NzY1Mzg2MDV9.cgKzGurhr2mhbYOknEdIsNR1wjc0kbv26P9KRbTc5bM
 
 ###
 
