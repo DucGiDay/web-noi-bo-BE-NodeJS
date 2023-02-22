@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 exports.connectDB = async () => {
 	try {
 		await mongoose.connect(
-			`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@webfullstack.jx61a3j.mongodb.net/?retryWrites=true&w=majority`,
+			`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@webbanhang.rnugpfu.mongodb.net/?retryWrites=true&w=majority`,
 			{
 				useCreateIndex: true,
 				useNewUrlParser: true,

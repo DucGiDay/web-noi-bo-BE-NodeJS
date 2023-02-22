@@ -120,22 +120,3 @@ exports.postById = async (req, res, next, id) => {
       })
   }
 
-
-// exports.funcTest = (id) => {
-//   console.log(id);
-// }
-
-////// Hàm check roles người dùng
-// exports.hasAuthorization = function (roles) {
-//   const _this = this
-//   return async function (req, res, next) {
-//     _this.funcTest(123)
-//     const user = await helper.getUserById(req.userId)
-//     if (_.intersection(user.roles, roles).length) {
-//       return next()
-//     }
-//     return res.status(403).send({
-//       message: 'User is not authorized',
-//     })
-//   }
-// }

@@ -36,19 +36,19 @@ exports.register = async (req, res) => {
 
 		// All good
 		const hashedPassword = await argon2.hash(password)
-		const newUser = new User({ username, password: hashedPassword })
+		const newUser = new User({ username, password: hashedPassword, roles: ["user"] })
 		await newUser.save()
 
 		// Return token
-		const accessToken = jwt.sign(
-			{ userId: newUser._id },
-			process.env.ACCESS_TOKEN_SECRET
-		)
+		// const accessToken = jwt.sign(
+		// 	{ userId: newUser._id },
+		// 	process.env.ACCESS_TOKEN_SECRET
+		// )
 
 		res.json({
 			success: true,
 			message: 'User created successfully',
-			accessToken
+			// accessToken
 		})
 	} catch (error) {
 		console.log(error)
@@ -81,15 +81,15 @@ exports.createUser = async (req, res) => {
 		await newUser.save()
 
 		// Return token
-		const accessToken = jwt.sign(
-			{ userId: newUser._id },
-			process.env.ACCESS_TOKEN_SECRET
-		)
+		// const accessToken = jwt.sign(
+		// 	{ userId: newUser._id },
+		// 	process.env.ACCESS_TOKEN_SECRET
+		// )
 
 		res.json({
 			success: true,
 			message: 'User created successfully',
-			accessToken
+			// accessToken
 		})
 	} catch (error) {
 		console.log(error)
