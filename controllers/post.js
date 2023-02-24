@@ -110,13 +110,13 @@ exports.delete = async (req, res) => {
 }
 
 exports.postById = async (req, res, next, id) => {
-    Post.findById(id)
-      .populate('user', 'username')
-      .exec(function (err, post) {
-        if (err) return next(err)
-        if (!post) return next(new Error('Failed to load post ' + id))
-        req.post = post
-        next()
-      })
-  }
+	Post.findById(id)
+	.populate('user', 'username')
+	.exec(function (err, post) {
+		if (err) return next(err)
+		if (!post) return next(new Error('Failed to load post ' + id))
+		req.post = post
+		next()
+	})
+}
 

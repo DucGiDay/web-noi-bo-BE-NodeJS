@@ -5,20 +5,15 @@ const { hasAuthorization } = require('../middleware/has-authorization')
 
 const User = require('../controllers/auth')
 
-// @desc Check if user is logged in
-// @access Public
 router.get('/user', verifyToken, User.getUser)
 
-// @desc Register user
-// @access Public
-router.post('/register', User.register)
-
-// @desc Create user
-// @access Private
+router.get('/users', verifyToken, hasAuthorization(["admin"]), User.getAllUsers)
 router.post('/create',verifyToken, hasAuthorization(["admin"]), User.createUser)
+router.put('/users', verifyToken, hasAuthorization(["admin"]), User.deleteUsers)
 
-// @desc Login user
-// @access Public
+router.post('/register', User.register)
 router.post('/login', User.login)
+
+router.param('id', User.userById)
 
 module.exports = router

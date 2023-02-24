@@ -1,8 +1,10 @@
 const express = require('express')
 const argon2 = require('argon2')
 const jwt = require('jsonwebtoken')
+const _ = require('lodash')
 
 const User = require('../models/User')
+const helper = require('../middleware/helper')
 
 exports.getUser = async (req, res) => {
 	try {
@@ -13,6 +15,35 @@ exports.getUser = async (req, res) => {
 	} catch (error) {
 		console.log(error)
 		res.status(500).json({ success: false, message: 'Internal server error' })
+	}
+}
+
+exports.getAllUsers = async (req, res) => {
+	try {
+		const users = await User.find()
+		res.json({ success: true, data: users })
+	} catch (error) {
+		console.log(error)
+		res.status(500).json({ success: false, message: 'Internal server error' })
+	}
+}
+
+exports.deleteUsers = async (req, res) => {
+	let users = req.body
+	let userIds = []
+	_.forEach(users, (user) => {
+		userIds.push(helper.getObjectId(user))
+	})
+	try {
+		users = await User.find({_id: {$in: userIds}})
+		_.forEach(users, (user) => {
+			user.status = "disabled"
+			user.save()
+		})
+		return res.json({ success: true, data: users })
+	} catch (error) {
+		console.log(error)
+		return res.status(500).json({ success: false, message: 'Internal server error' })
 	}
 }
 
@@ -80,11 +111,6 @@ exports.createUser = async (req, res) => {
 		const newUser = new User({ username, password: hashedPassword, roles })
 		await newUser.save()
 
-		// Return token
-		// const accessToken = jwt.sign(
-		// 	{ userId: newUser._id },
-		// 	process.env.ACCESS_TOKEN_SECRET
-		// )
 
 		res.json({
 			success: true,
@@ -108,7 +134,7 @@ exports.login = async (req, res) => {
 
 	try {
 		// Check for existing user
-		const user = await User.findOne({ username })
+		const user = await User.findOne({ username, status: "active" })
 		if (!user)
 			return res
 				.status(400)
@@ -137,4 +163,14 @@ exports.login = async (req, res) => {
 		console.log(error)
 		res.status(500).json({ success: false, message: 'Internal server error' })
 	}
+}
+
+exports.userById = async (req, res, next, id) => {
+	User.findById(id)
+	.exec(function (err, user) {
+		if (err) return next(err)
+		if (!user) return next(new Error('Failed to load user ' + id))
+		req.user = user
+		next()
+	})
 }

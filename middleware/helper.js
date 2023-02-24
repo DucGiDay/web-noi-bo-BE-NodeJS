@@ -1,11 +1,12 @@
 const _ = require('lodash')
 const User = require('../models/User')
+const ObjectId = require('mongoose').Types.ObjectId
 
-// const getObjectId = (exports.getObjectId = function (obj) {
-//   const id = _.get(obj, '_id') || obj
-//   if (_.isString(id) && ObjectId.isValid(id)) return new ObjectId(id)
-//   return id
-// })
+getObjectId = (exports.getObjectId = function (obj) {
+  const id = _.get(obj, '_id') || obj
+  if (_.isString(id) && ObjectId.isValid(id)) return new ObjectId(id)
+  return id
+})
 
 // exports.isEqual = function (a, b) {
 //   return _.isEqual(getObjectId(a), getObjectId(b))
