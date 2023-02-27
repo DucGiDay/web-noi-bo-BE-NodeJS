@@ -6,11 +6,6 @@ const _ = require('lodash')
 exports.hasAuthorization = function (roles) {
   return async function (req, res, next) {
 
-    // Nếu roles là admin thì cho qua luôn
-    if (_.intersection(["admin"], roles).length) {
-      return next()
-    }
-
     //Kiểm tra người dùng có roles tương ứng hay không
     const user = await helper.getUserById(req.userId)
     
